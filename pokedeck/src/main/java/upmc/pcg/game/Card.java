@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package upmc.pcg.game;
+package upmc.pcg;
 
 /**
  *
@@ -15,18 +15,24 @@ public class Card
     private String cardName;
     private String cardDescription;
     
-    public Card(int number, String name,String description)
+    public Card(int number, String name)
     {
         this.cardNumber = number;
         this.cardName = name;
-        this.cardDescription = description;
+        this.cardDescription = "";
     }
-
-    public void addDescription(String description){
-    	this.cardDescription = description;
+    
+    public void addDescription(String description)
+    {
+        this.cardDescription = description;
     }
 
     public void updateCard(int cardNumber,String cardName,String cardDescription){
     	
     }
+    
+    /*
+    *Getteur et Setteur pour les attributs ?
+    
+    */
 }

@@ -20,10 +20,10 @@ public class Pokemon extends Card
    private Pokemon pokemonPreviousStage; 
    private String pokemonSpecialAbility;
    private ArrayList<Attack> pokemonAttackList;
-   private ArrayList<Energy> pokemonRetreatCoat;
+   private ArrayList<Energy> pokemonRetreatCost;
    private ArrayList<SpecialConditions> pokemonStade;
 
-    public Pokemon(EnergyType pokemonType, EnergyAffinity pokemonWeakness, EnergyAffinity pokemonResistance, int pokemonHeathPoint, Pokemon pokemonPreviousStage, String pokemonSpecialAbility, ArrayList<Attack> pokemonAttackList, ArrayList<Energy> pokemonRetreatCoat, ArrayList<SpecialConditions> pokemonStade, int number, String name, String description) {
+    public Pokemon(EnergyType pokemonType, EnergyAffinity pokemonWeakness, EnergyAffinity pokemonResistance, int pokemonHeathPoint, Pokemon pokemonPreviousStage, String pokemonSpecialAbility, ArrayList<Attack> pokemonAttackList, ArrayList<Energy> pokemonRetreatCost, ArrayList<SpecialConditions> pokemonStade, int number, String name, String description) {
         super(number, name, description);
         this.pokemonType = pokemonType;
         this.pokemonWeakness = pokemonWeakness;
@@ -32,11 +32,29 @@ public class Pokemon extends Card
         this.pokemonPreviousStage = pokemonPreviousStage;
         this.pokemonSpecialAbility = pokemonSpecialAbility;
         this.pokemonAttackList = pokemonAttackList;
-        this.pokemonRetreatCoat = pokemonRetreatCoat;
+        this.pokemonRetreatCost = pokemonRetreatCost;
         this.pokemonStade = pokemonStade;
     }
-
-
+    
+    /*Return elements of list in String*/
+    public String getElementsListText(ArrayList list){
+        String elementsListText = "";
+        for(int i=0;i<list.size();i++){
+            elementsListText = elementsListText+list.get(i)+"\n";
+        }
+        return elementsListText;
+    }
+    
+    /*TODO
+     *Les attributs que j'ai pas affiché
+     *pokemonPreviousStage
+     *pokemonRetreatCost
+     */
+    public String toString(){
+        String pokemonAttackList = getElementsListText(this.pokemonAttackList);
+       
+        return this.toString()+"Heath point: "+this.pokemonHeathPoint+"Attacks :\n"+pokemonAttackList;
+    }
 
 
 }

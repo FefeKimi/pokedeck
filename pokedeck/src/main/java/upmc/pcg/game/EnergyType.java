@@ -18,5 +18,7 @@ public class EnergyType {
         this.EnergyTypeId = EnergyTypeId;
     }
     
-    
+    public String toString(){
+        return this.EnergyTypeId+"Energy type : "+this.EnergyTypeName+"\n";
+    }
 }

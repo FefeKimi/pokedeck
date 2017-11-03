@@ -21,4 +21,8 @@ public class EnergyAffinity
         this.energyAffinityValue = value;
         this.energyAffinityName = name;
     }
+    
+    public String toString(){
+        return this.energyAffinityType.toString()+this.energyAffinityValue+" "+this.energyAffinityName+"\n";
+    }
 }

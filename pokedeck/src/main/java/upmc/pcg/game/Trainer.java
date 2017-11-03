@@ -22,7 +22,8 @@ public class Trainer extends Card
         this.trainerRule = trainerRule;
     }
     
-    
-    
+    public String toString(){
+        return "Trainer : "+this.trainerType+"\n\nTextBox : \n"+this.toString()+this.trainerTextBox+"\n\n Trainer rule :\n"+this.trainerRule+"\n\n";
+    }
          
 }

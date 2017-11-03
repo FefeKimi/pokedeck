@@ -28,11 +28,11 @@ public class Card
     }
 
     public void updateCard(int cardNumber,String cardName,String cardDescription){
-    	
+    	//T'es sûr qu'on a besoin de cette methode? Pour moi une carte reste fixe une foid créer
     }
     
-    /*
-    *Getteur et Setteur pour les attributs ?
     
-    */
+    public String toString(){
+        return this.cardNumber+" "+this.cardName+"\n\nDescrition :\n"+this.cardDescription+"\n\n";
+    }
 }

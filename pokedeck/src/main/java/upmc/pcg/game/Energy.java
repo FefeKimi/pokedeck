@@ -17,4 +17,7 @@ public class Energy extends Card{
         this.EnergyType = EnergyType;
     }
     
+    public String toString(){
+        return this.toString()+
+    }
 }

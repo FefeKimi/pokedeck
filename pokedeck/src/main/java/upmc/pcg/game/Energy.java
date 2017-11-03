@@ -10,14 +10,14 @@ package upmc.pcg.game;
  * @author adminRAF
  */
 public class Energy extends Card{
-    private EnergyType EnergyType;
+    private EnergyType energyType;
 
     public Energy(EnergyType EnergyType, int number, String name, String description) {
         super(number, name, description);
-        this.EnergyType = EnergyType;
+        this.energyType = EnergyType;
     }
     
     public String toString(){
-        return this.toString()+
+        return this.toString()+this.energyType.toString();
     }
 }

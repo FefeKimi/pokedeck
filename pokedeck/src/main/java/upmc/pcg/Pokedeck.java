@@ -14,13 +14,53 @@
 
 package upmc.pcg;
 
+import java.util.ArrayList;
 import upmc.pcg.ui.GameUI;
 
 public class Pokedeck
 {
-  public static void main(String[] args)
-  {
-    GameUI game_ui = new GameUI();
-    game_ui.start();
-  }
+    private String pokedeckName;
+    //private Owner pockedeckOwner; (Classe Owner à créer?)
+    private ArrayList<Card> pokedeckContent;
+    
+    public Pokedeck(String name, ArrayList<Card> content)
+    {
+        this.pokedeckName = name;
+        this.pokedeckContent = content;
+    }
+    public static void main(String[] args)
+    {
+        GameUI game_ui = new GameUI();
+        game_ui.start();
+    }
+    
+    public void displayCollection()
+    {
+        System.out.println("Collection");
+        for(int i=0;i<this.pokedeckContent.size();i++)
+        {
+            System.out.println(this.pokedeckContent.get(i).toString());
+        }
+        
+    }
+    
+    public void searchCardByName(String name)
+    {
+        for(int i=0;i<this.pokedeckContent.size();i++)
+        {
+            if(this.pokedeckContent.get(i).getCardName() == name)
+                System.out.println(this.pokedeckContent.get(i).toString());
+        }
+    }
+    
+    public void searchCardByNumber(int number)
+    {
+        for(int i=0;i<this.pokedeckContent.size();i++)
+        {
+            if(this.pokedeckContent.get(i).getCardNumber() == number)
+                System.out.println(this.pokedeckContent.get(i).toString());
+        }
+    }
+
+
 }

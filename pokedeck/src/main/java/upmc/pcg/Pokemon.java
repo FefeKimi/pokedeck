@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package upmc.pcg.game;
+package upmc.pcg;
 
+import upmc.pcg.EnergyType;
+import upmc.pcg.EnergyAffinity;
+import upmc.pcg.Energy;
+import upmc.pcg.Attack;
 import java.util.ArrayList;
 
 /**
@@ -23,8 +27,22 @@ public class Pokemon extends Card
    private ArrayList<Energy> pokemonRetreatCost;
    private ArrayList<SpecialConditions> pokemonStade;
 
-    public Pokemon(EnergyType pokemonType, EnergyAffinity pokemonWeakness, EnergyAffinity pokemonResistance, int pokemonHeathPoint, Pokemon pokemonPreviousStage, String pokemonSpecialAbility, ArrayList<Attack> pokemonAttackList, ArrayList<Energy> pokemonRetreatCost, ArrayList<SpecialConditions> pokemonStade, int number, String name, String description) {
-        super(number, name, description);
+    public Pokemon
+        (
+            EnergyType pokemonType, 
+            EnergyAffinity pokemonWeakness, 
+            EnergyAffinity pokemonResistance, 
+            int pokemonHeathPoint, 
+            Pokemon pokemonPreviousStage, 
+            String pokemonSpecialAbility, 
+            ArrayList<Attack> pokemonAttackList, 
+            ArrayList<Energy> pokemonRetreatCost, 
+            ArrayList<SpecialConditions> pokemonStade, 
+            int number, 
+            String name
+        ) 
+    {
+        super(number, name);
         this.pokemonType = pokemonType;
         this.pokemonWeakness = pokemonWeakness;
         this.pokemonResistance = pokemonResistance;
@@ -37,7 +55,8 @@ public class Pokemon extends Card
     }
     
     /*Return elements of list in String*/
-    public String getElementsListText(ArrayList list){
+    public String getElementsListText(ArrayList list)
+    {
         String elementsListText = "";
         for(int i=0;i<list.size();i++){
             elementsListText = elementsListText+list.get(i)+"\n";
@@ -50,7 +69,8 @@ public class Pokemon extends Card
      *pokemonPreviousStage
      *pokemonRetreatCost
      */
-    public String toString(){
+    public String toString()
+    {
         String pokemonAttackList = getElementsListText(this.pokemonAttackList);
        
         return this.toString()+"Heath point: "+this.pokemonHeathPoint+"Attacks :\n"+pokemonAttackList;

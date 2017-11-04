@@ -3,22 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package upmc.pcg.game;
+package upmc.pcg;
 
 /**
  *
  * @author sena-
  */
-public class EnergyType {
+public class EnergyType 
+{
     private String EnergyTypeName;
     private int EnergyTypeId;
 
-    public EnergyType(String EnergyTypeName, int EnergyTypeId) {
+    public EnergyType(String EnergyTypeName, int EnergyTypeId) 
+    {
         this.EnergyTypeName = EnergyTypeName;
         this.EnergyTypeId = EnergyTypeId;
     }
     
-    public String toString(){
+    public String toString()
+    {
         return this.EnergyTypeId+"Energy type : "+this.EnergyTypeName+"\n";
     }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package upmc.pcg.game;
+package upmc.pcg;
 
 /**
  *
@@ -22,7 +22,8 @@ public class EnergyAffinity
         this.energyAffinityName = name;
     }
     
-    public String toString(){
+    public String toString()
+    {
         return this.energyAffinityType.toString()+this.energyAffinityValue+" "+this.energyAffinityName+"\n";
     }
 }

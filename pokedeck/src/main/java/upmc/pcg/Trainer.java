@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package upmc.pcg.game;
+package upmc.pcg;
 
 /**
  *
@@ -15,14 +15,16 @@ public class Trainer extends Card
     private String trainerTextBox;
     private String trainerRule;
 
-    public Trainer(String trainerType, String trainerTextBox, String trainerRule, int number, String name, String description) {
-        super(number, name, description);
+    public Trainer(String trainerType, String trainerTextBox, String trainerRule, int number, String name) 
+    {
+        super(number, name);
         this.trainerType = trainerType;
         this.trainerTextBox = trainerTextBox;
         this.trainerRule = trainerRule;
     }
     
-    public String toString(){
+    public String toString()
+    {
         return "Trainer : "+this.trainerType+"\n\nTextBox : \n"+this.toString()+this.trainerTextBox+"\n\n Trainer rule :\n"+this.trainerRule+"\n\n";
     }
          

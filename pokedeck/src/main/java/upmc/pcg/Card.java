@@ -28,9 +28,18 @@ public class Card
     }
 
     public void updateCard(int cardNumber,String cardName,String cardDescription){
-    	//T'es sûr qu'on a besoin de cette methode? Pour moi une carte reste fixe une foid créer
+        this.cardNumber = cardNumber;
+        this.cardName = cardName;
+        this.cardDescription = cardDescription;
     }
     
+    public String getCardName(){
+        return this.cardName;
+    }
+    
+    public int getCardNumber(){
+        return this.cardNumber;
+    }
     
     public String toString(){
         return this.cardNumber+" "+this.cardName+"\n\nDescrition :\n"+this.cardDescription+"\n\n";

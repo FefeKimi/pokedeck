@@ -3,21 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package upmc.pcg.game;
+package upmc.pcg;
 
 /**
  *
  * @author adminRAF
  */
-public class Energy extends Card{
+public class Energy extends Card
+{
     private EnergyType energyType;
 
-    public Energy(EnergyType EnergyType, int number, String name, String description) {
-        super(number, name, description);
+    public Energy(EnergyType EnergyType, int number, String name) 
+    {
+        super(number, name);
         this.energyType = EnergyType;
     }
     
-    public String toString(){
+    public String toString()
+    {
         return this.toString()+this.energyType.toString();
     }
 }

@@ -19,13 +19,13 @@ import upmc.pcg.ui.GameUI;
 
 public class Pokedeck
 {
-    private String pokedeckOwner;
+    private String pokedeckName;
     //private Owner pockedeckOwner; (Classe Owner à créer?)
     private ArrayList<Card> pokedeckContent;
     
-    public Pokedeck(String Owner, ArrayList<Card> content)
+    public Pokedeck(String name, ArrayList<Card> content)
     {
-        this.pokedeckOwner = Owner;
+        this.pokedeckName = name;
         this.pokedeckContent = content;
     }
     public static void main(String[] args)
@@ -40,7 +40,8 @@ public class Pokedeck
         for(int i=0;i<this.pokedeckContent.size();i++)
         {
             System.out.println(this.pokedeckContent.get(i).toString());
-        } 
+        }
+        
     }
     
     public void searchCardByName(String name)
@@ -58,21 +59,6 @@ public class Pokedeck
         {
             if(this.pokedeckContent.get(i).getCardNumber() == number)
                 System.out.println(this.pokedeckContent.get(i).toString());
-        }
-    }
-    
-    public void add_card(Card newCard){
-        this.pokedeckContent.add(newCard);
-    }
-    
-    public void delete_card(int index){
-        String confirm;
-        confirm = GameUI.confirm_delete(this.pokedeckContent.get(index).getCardName());
-        if(confirm.equals("y")){
-            this.pokedeckContent.remove(index);
-        }
-        else if(confirm.equals("n")){
-            System.out.println("Alright, we won't delete this card then");
         }
     }
 

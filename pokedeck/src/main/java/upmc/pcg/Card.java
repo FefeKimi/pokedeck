@@ -15,8 +15,6 @@ public class Card
     private String cardName;
     private String cardDescription;
     
-    public Card(){}
-    
     public Card(int number, String name)
     {
         this.cardNumber = number;

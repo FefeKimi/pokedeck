@@ -19,6 +19,14 @@ public class EnergyType
         this.EnergyTypeName = EnergyTypeName;
         this.EnergyTypeId = EnergyTypeId;
     }
+
+    public EnergyType() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getEnergyTypeName() {
+        return EnergyTypeName;
+    }
     
     public String toString()
     {

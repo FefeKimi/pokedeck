@@ -13,17 +13,15 @@ public class EnergyAffinity
 {
     private EnergyType energyAffinityType;
     private int energyAffinityValue;
-    private String energyAffinityName;
     
-    public EnergyAffinity(EnergyType type, int value, String name)
+    public EnergyAffinity(EnergyType type, int value)
     {
         this.energyAffinityType = type;
         this.energyAffinityValue = value;
-        this.energyAffinityName = name;
     }
     
     public String toString()
     {
-        return this.energyAffinityType.toString()+this.energyAffinityValue+" "+this.energyAffinityName+"\n";
+        return this.energyAffinityType.toString()+this.energyAffinityValue+"\n";
     }
 }

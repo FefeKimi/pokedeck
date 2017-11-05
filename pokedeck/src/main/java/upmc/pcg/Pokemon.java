@@ -21,11 +21,12 @@ public class Pokemon extends Card
    private EnergyAffinity pokemonWeakness;
    private EnergyAffinity pokemonResistance;
    private int pokemonHeathPoint;
-   private Pokemon pokemonPreviousStage; 
+   private int pokemonStage;
+   //private Pokemon pokemonPreviousStage; 
    private String pokemonSpecialAbility;
    private ArrayList<Attack> pokemonAttackList;
-   private ArrayList<Energy> pokemonRetreatCost;
-   private ArrayList<SpecialConditions> pokemonStade;
+   private ArrayList<EnergyType> pokemonRetreatCost;
+   //private ArrayList<SpecialConditions> pokemonState;
 
     public Pokemon
         (
@@ -33,11 +34,11 @@ public class Pokemon extends Card
             EnergyAffinity pokemonWeakness, 
             EnergyAffinity pokemonResistance, 
             int pokemonHeathPoint, 
-            Pokemon pokemonPreviousStage, 
+            //Pokemon pokemonPreviousStage, 
             String pokemonSpecialAbility, 
             ArrayList<Attack> pokemonAttackList, 
-            ArrayList<Energy> pokemonRetreatCost, 
-            ArrayList<SpecialConditions> pokemonStade, 
+            ArrayList<EnergyType> pokemonRetreatCost, 
+            //ArrayList<SpecialConditions> pokemonState, 
             int number, 
             String name
         ) 
@@ -47,12 +48,17 @@ public class Pokemon extends Card
         this.pokemonWeakness = pokemonWeakness;
         this.pokemonResistance = pokemonResistance;
         this.pokemonHeathPoint = pokemonHeathPoint;
-        this.pokemonPreviousStage = pokemonPreviousStage;
+        //this.pokemonPreviousStage = pokemonPreviousStage;
         this.pokemonSpecialAbility = pokemonSpecialAbility;
         this.pokemonAttackList = pokemonAttackList;
         this.pokemonRetreatCost = pokemonRetreatCost;
-        this.pokemonStade = pokemonStade;
+        //this.pokemonState = pokemonState;
     }
+
+    public Pokemon() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     /*Return elements of list in String*/
     public String getElementsListText(ArrayList list)

@@ -30,7 +30,7 @@ public class GameUI
         askPlayersMethod(names);
         game.initialize(names);
         game.play();
-        menu(game.getPokedecks().get(1));
+        menu(game.getPokedecks().get(0));
     }
 
     private ArrayList<String> ask_players_names() 
@@ -57,21 +57,51 @@ public class GameUI
       }
   }
   
+  public int isNumber(){
+      int choice=0;
+      try{
+          choice = console.nextInt();
+      }
+      catch(InputMismatchException e){
+          System.out.println("You must enter a number");
+          console.nextLine();
+      }
+      return choice;
+      
+  }
+    
+  public int menu_isCorrectChoice(int choice){
+      choice = ask_menu_choice(choice);
+      while(!(choice>1 && choice<4)){
+          System.out.println("Error! Please make a choice between 1-4");
+          choice = ask_menu_choice(choice);
+      }
+      return choice;
+  }
+  
+  public int ask_menu_choice(int choice){
+      System.out.println("1 - Display my collection\n 2 - Search specific card\n 3 - Create a card\n 4 - Quit");
+      choice= isNumber();
+      return choice;
+  }
+  
   /*pas encore fonctionnelle car non finie*/
   public void menu(Pokedeck p)
   {
       System.out.println("-- Menu --");
       int choice = 0;
+      choice = menu_isCorrectChoice(choice);
       
       //Control input
+      /*
       while(choice!=1 || choice !=2 || choice!=3)
       {
-        if(choice!=1 || choice !=2 || choice!=3)
-           System.out.print("Error! Please make a choice between 1-3"); 
+        if(choice!=1 || choice !=2 || choice!=3){
+           System.out.print("Error! Please make a choice between 1-3");
+           display_menu(choice);
+        }
         
-        System.out.println("1 - Display my collection\n 2 - Search specific card\n 3 - Quit");
-        choice= this.console.nextInt();
-      }
+      }*/
       
       switch(choice){
             case 1:
@@ -97,15 +127,35 @@ public class GameUI
 
             break;
             case 3:
+                System.out.println("You will create a card");
+                create_card();
+                break;
+            case 4:
                 System.out.print("End game.");
             ;          
         }
   }
   
+  private void create_card(){
+      System.out.println("What kind of card do you want create ?");
+      display_type_card();
+      System.out.println("Make your choice");
+      
+  }
+  
+  private void display_type_card(){
+      System.out.println("1 - Pokemon");
+      System.out.println("2 - Trainer");
+      System.out.println("3 - Energy");
+  }
+  
+  
   private void print_welcome_msg() 
   {
       System.out.println("S.T.A.R.T");
   }
+  
+  
   
  
 }

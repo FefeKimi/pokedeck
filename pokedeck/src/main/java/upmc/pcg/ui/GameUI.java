@@ -17,21 +17,47 @@ package upmc.pcg.ui;
 import java.util.*;
 import upmc.pcg.game.Game;
 
-public class GameUI {
-  private final Game game = new Game();
-  private final Scanner console = new Scanner(System.in);
+public class GameUI 
+{
+    private final Game game = new Game();
+    private final Scanner console = new Scanner(System.in);
 
-  public void start() {
-    print_welcome_msg();
-    ArrayList<String> names = ask_players_names();
-    game.initialize(names);
-    game.play();
+  public void start() 
+  {
+      print_welcome_msg();
+      ArrayList<String> names = ask_players_names();
+      askPlayersMethod(names);
+      game.initialize(names);
+      game.play();
   }
 
-  private ArrayList<String> ask_players_names() {
-    return new ArrayList<>();
+  private ArrayList<String> ask_players_names() 
+  { 
+      return new ArrayList<>();
   }
-
-  private void print_welcome_msg() {
+  
+  public void askPlayersMethod(ArrayList<String> playersNames){
+      int i=1;
+      System.out.print("Number of players : ");
+      System.out.flush();
+      int nbPlayers = this.console.nextInt();
+      System.out.println();      
+      this.console.nextLine();
+      
+      while(i<=nbPlayers){         
+          System.out.print(i+"- player name: ");
+          System.out.flush();
+          String playerName = this.console.nextLine();
+          System.out.println();
+          playersNames.add(playerName);  
+          i++;
+      }
+      
   }
+  
+  private void print_welcome_msg() 
+  {
+      System.out.println("S.T.A.R.T");
+  }
+  
 }

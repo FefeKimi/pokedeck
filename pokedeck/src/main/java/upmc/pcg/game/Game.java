@@ -15,12 +15,22 @@
 package upmc.pcg.game;
 
 import java.util.*;
+import upmc.pcg.Card;
+import upmc.pcg.Pokedeck;
 
-public class Game {
-  public Game() {
+public class Game 
+{
+  private ArrayList<Pokedeck> listPokedeck;
+  
+  public Game() 
+  {
+      this.listPokedeck = new ArrayList<Pokedeck>();
   }
-  public void initialize(ArrayList<String> players_name) {
-    //....
+  public void initialize(ArrayList<String> players_name) 
+  {
+      for(int i=0;i<players_name.size();i++){
+          this.listPokedeck.add(new Pokedeck(players_name.get(i),new ArrayList<Card>()));
+      }
   }
   public void play() {
     //...

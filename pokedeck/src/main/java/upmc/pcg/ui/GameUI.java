@@ -30,6 +30,7 @@ public class GameUI
       askPlayersMethod(names);
       game.initialize(names);
       game.play();
+      menu(game.getPokedecks().get(1));
   }
 
   private ArrayList<String> ask_players_names() 
@@ -59,12 +60,19 @@ public class GameUI
   public void menu(Pokedeck p)
   {
       System.out.println("-- Menu --");
-      System.out.println("1 - Display my collection\n 2 - Search specific card\n 3 - Quit");
-      int choice= this.console.nextInt();
-        
+      int choice = 0;
+      
+      //Control input
       while(choice!=1 || choice !=2 || choice!=3)
       {
-        switch(choice){
+        if(choice!=1 || choice !=2 || choice!=3)
+           System.out.print("Error! Please make a choice between 1-3"); 
+        
+        System.out.println("1 - Display my collection\n 2 - Search specific card\n 3 - Quit");
+        choice= this.console.nextInt();
+      }
+      
+      switch(choice){
             case 1:
                 p.displayCollection();
             break;
@@ -75,9 +83,11 @@ public class GameUI
                     this.console.nextLine();
                     System.out.println("Card name :");
                     String name = this.console.nextLine();
+                    p.searchCardByName(name);
                 }else if(choice==2){
                     System.out.println("Card number :");
                     int number = this.console.nextInt();
+                    p.searchCardByNumber(number);
                 }else if(choice==3){   
                 }
                 else{
@@ -86,12 +96,9 @@ public class GameUI
 
             break;
             case 3:
-                System.out.print("En game");
-            ;
-            default:
-                System.out.print("Error! Please make a choicie between 1-3");
+                System.out.print("End game.");
+            ;          
         }
-      }
   }
   
   private void print_welcome_msg() 
@@ -99,4 +106,5 @@ public class GameUI
       System.out.println("S.T.A.R.T");
   }
   
+ 
 }

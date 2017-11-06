@@ -61,6 +61,13 @@ public class Pokedeck
                 System.out.println(this.pokedeckContent.get(i).toString());
         }
     }
-
-
+    
+    public String getPokedeckName(){
+        return this.getPokedeckName();
+    }
+    
+    public ArrayList<Card> getPokedeckContent(){
+        return this.pokedeckContent;
+    }
+    
 }

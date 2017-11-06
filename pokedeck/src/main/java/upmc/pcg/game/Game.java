@@ -26,13 +26,25 @@ public class Game
   {
       this.listPokedeck = new ArrayList<Pokedeck>();
   }
+  
   public void initialize(ArrayList<String> players_name) 
   {
       for(int i=0;i<players_name.size();i++){
           this.listPokedeck.add(new Pokedeck(players_name.get(i),new ArrayList<Card>()));
       }
   }
-  public void play() {
-    //...
+  
+  public ArrayList<Pokedeck> getPokedecks()
+  {
+      return this.listPokedeck;
+  }
+  
+  public void play() 
+  {
+    
+  }
+
+  public void menu() {
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 }

@@ -23,36 +23,37 @@ public class GameUI
     private final Game game = new Game();
     private final Scanner console = new Scanner(System.in);
 
-  public void start() 
-  {
-      print_welcome_msg();
-      ArrayList<String> names = ask_players_names();
-      askPlayersMethod(names);
-      game.initialize(names);
-      game.play();
-      menu(game.getPokedecks().get(1));
-  }
+    public void start() 
+    {
+        print_welcome_msg();
+        ArrayList<String> names = ask_players_names();
+        askPlayersMethod(names);
+        game.initialize(names);
+        game.play();
+        menu(game.getPokedecks().get(1));
+    }
 
-  private ArrayList<String> ask_players_names() 
-  { 
+    private ArrayList<String> ask_players_names() 
+    { 
       return new ArrayList<>();
-  }
+    }
   
-  public void askPlayersMethod(ArrayList<String> playersNames){
-      int i=1;
-      System.out.print("Number of players : ");
-      System.out.flush();
-      int nbPlayers = this.console.nextInt();
-      System.out.println();      
-      this.console.nextLine();
+    public void askPlayersMethod(ArrayList<String> playersNames)
+    {
+        int i=1;
+        System.out.print("Number of players : ");
+        System.out.flush();
+        int nbPlayers = this.console.nextInt();
+        System.out.println();
+        this.console.nextLine();
       
-      while(i<=nbPlayers){         
-          System.out.print(i+"- player name: ");
-          System.out.flush();
-          String playerName = this.console.nextLine();
-          System.out.println();
-          playersNames.add(playerName);  
-          i++;
+        while(i<=nbPlayers){
+            System.out.print(i+"- player name: ");
+            System.out.flush();
+            String playerName = this.console.nextLine();
+            System.out.println();
+            playersNames.add(playerName);
+            i++;
       }
   }
   

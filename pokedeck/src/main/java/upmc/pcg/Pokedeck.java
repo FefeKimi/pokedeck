@@ -44,22 +44,30 @@ public class Pokedeck
         
     }
     
-    public void searchCardByName(String name)
+    public Card getCardByName(String name)
     {
+        Card c = new Card(0,"");
         for(int i=0;i<this.pokedeckContent.size();i++)
         {
             if(this.pokedeckContent.get(i).getCardName() == name)
-                System.out.println(this.pokedeckContent.get(i).toString());
+               c = this.pokedeckContent.get(i);
         }
+        return c;
     }
     
-    public void searchCardByNumber(int number)
+    public Card getCardByNumber(int number)
     {
+        Card c = new Card(0,"");
         for(int i=0;i<this.pokedeckContent.size();i++)
         {
             if(this.pokedeckContent.get(i).getCardNumber() == number)
-                System.out.println(this.pokedeckContent.get(i).toString());
+                c = this.pokedeckContent.get(i);        
         }
+        return c;
+    }
+    
+    public void deleteCard(Card c){
+        this.pokedeckContent.remove(c);
     }
     
     public String getPokedeckName(){

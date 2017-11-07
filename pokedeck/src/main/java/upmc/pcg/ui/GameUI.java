@@ -15,6 +15,7 @@
 package upmc.pcg.ui;
 
 import java.util.*;
+import upmc.pcg.Card;
 import upmc.pcg.Pokedeck;
 import upmc.pcg.game.Game;
 
@@ -47,84 +48,74 @@ public class GameUI
         System.out.println();
         this.console.nextLine();
       
-        while(i<=nbPlayers){
+        while(i<=nbPlayers)
+        {
             System.out.print(i+"- player name: ");
             System.out.flush();
             String playerName = this.console.nextLine();
             System.out.println();
             playersNames.add(playerName);
             i++;
-      }
-  }
-  
-  public int isNumber(){
-      int choice=0;
-      try{
-          choice = console.nextInt();
-      }
-      catch(InputMismatchException e){
-          System.out.println("You must enter a number");
-          console.nextLine();
-      }
-      return choice;
-      
-  }
-    
-  public int menu_isCorrectChoice(int choice){
-      choice = ask_menu_choice(choice);
-      while(!(choice>1 && choice<4)){
-          System.out.println("Error! Please make a choice between 1-4");
-          choice = ask_menu_choice(choice);
-      }
-      return choice;
-  }
-  
-  public int ask_menu_choice(int choice){
-      System.out.println("1 - Display my collection\n 2 - Search specific card\n 3 - Create a card\n 4 - Quit");
-      choice= isNumber();
-      return choice;
-  }
-  
-  /*pas encore fonctionnelle car non finie*/
-  public void menu(Pokedeck p)
-  {
-      System.out.println("-- Menu --");
-      int choice = 0;
-      choice = menu_isCorrectChoice(choice);
-      
-      //Control input
-      /*
-      while(choice!=1 || choice !=2 || choice!=3)
-      {
-        if(choice!=1 || choice !=2 || choice!=3){
-           System.out.print("Error! Please make a choice between 1-3");
-           display_menu(choice);
         }
-        
-      }*/
+  }
+    public int isNumber()
+    {
+        int choice=0;
+        try{
+            choice = console.nextInt();
+        }
+        catch(InputMismatchException e){
+            System.out.println("You must enter a number");
+            console.nextLine();
+        }
+        return choice;      
+    }
+    
+    public int menu_isCorrectChoice(int choice, String options, int limMax, int limMin)
+    {
+        System.out.println("1 - Display my collection\n 2 - Search specific card\n 3 - Create a card\n 4 - Quit");
+        choice = ask_menu_choice(choice);
+        while(!(choice>limMin && choice<limMax)){
+            System.out.println("Error! Please make a choice between "+limMin+"-"+limMax);
+            choice = ask_menu_choice(choice);
+        }
+        return choice;
+    }
+    
+    public int ask_menu_choice(int choice)
+    {
+        choice= isNumber();
+        return choice;
+    }
+  
+    /*pas encore fonctionnelle car non finie*/
+    public void menu(Pokedeck p)
+    {
+        System.out.println("-- Menu --");
+        int choice = 0;
+        choice = menu_isCorrectChoice(choice,"1 - Display my collection\n 2 - Search specific card\n 3 - Create a card\n 4 - Quit",1,4);
       
-      switch(choice){
+        switch(choice){
             case 1:
                 p.displayCollection();
             break;
             case 2:
-                System.out.println("1 - Search card by name\n 2 - Search card by number\n 3 - Return");
-                choice = this.console.nextInt();
+                choice = menu_isCorrectChoice(choice,"1 - Search card by name\n 2 - Search card by number\n 3 - Return",1,2);
                 if(choice==1){
                     this.console.nextLine();
                     System.out.println("Card name :");
                     String name = this.console.nextLine();
-                    p.searchCardByName(name);
+                    Card cardSearch = p.getCardByName(name);
+                    update_card(p,cardSearch);
                 }else if(choice==2){
                     System.out.println("Card number :");
                     int number = this.console.nextInt();
-                    p.searchCardByNumber(number);
+                    Card cardSearch = p.getCardByNumber(number);
+                    update_card(p,cardSearch);
                 }else if(choice==3){   
+                    //retour
                 }
-                else{
-                    System.out.print("Error! Please make a choicie between 1-3");
-                }
-
+                
             break;
             case 3:
                 System.out.println("You will create a card");
@@ -135,27 +126,62 @@ public class GameUI
             ;          
         }
   }
-  
-  private void create_card(){
-      System.out.println("What kind of card do you want create ?");
-      display_type_card();
-      System.out.println("Make your choice");
-      
-  }
-  
-  private void display_type_card(){
-      System.out.println("1 - Pokemon");
-      System.out.println("2 - Trainer");
-      System.out.println("3 - Energy");
-  }
-  
-  
-  private void print_welcome_msg() 
-  {
-      System.out.println("S.T.A.R.T");
-  }
-  
-  
-  
+    
+    private void create_card()
+    {
+        System.out.println("What kind of card do you want create ?");
+        display_type_card();
+        System.out.println("Make your choice");     
+    }
+    
+    private void display_type_card()
+    {
+        System.out.println("1 - Pokemon");
+        System.out.println("2 - Trainer");
+        System.out.println("3 - Energy");
+    }
  
+    private void update_card(Pokedeck p,Card c)
+    { 
+        this.console.nextInt();
+        int choice = 0;
+        choice = menu_isCorrectChoice(choice,"1 - Update this card\n 2- Delete this card\n 3 - Return",1,2);
+        
+        if(choice == 1)
+        {
+            String description = "";
+            System.out.println("Card number :");
+            int number = this.console.nextInt();
+            
+            this.console.nextLine();
+            System.out.println("Card number :");
+            String name = this.console.nextLine();
+            
+            this.console.nextInt();            
+            choice = menu_isCorrectChoice(choice,"Do you want to add description ?\n\n 1 - Yes\n 2 - No",1,2);
+            if(choice==1){
+                this.console.nextLine();
+                System.out.println("Card description :");
+                description = this.console.nextLine();
+                c.updateCard(number,name,description);
+            }else {
+                c.updateCard(number,name,description);
+            }
+        }else{
+            choice = menu_isCorrectChoice(choice,"Are you sure to delete this card?\n\n 1 - Yes\n 2 - No",1,2);
+            if(choice == 1)
+            {
+                p.deleteCard(c);    
+            }else{
+            //retour
+            }
+        }
+      
+    }
+  
+    private void print_welcome_msg() 
+    {
+        System.out.println("S.T.A.R.T");
+    }
+  
 }

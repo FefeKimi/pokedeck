@@ -15,12 +15,14 @@
 package upmc.pcg.ui;
 
 import java.util.*;
+import upmc.pcg.Attack;
 import upmc.pcg.Card;
 import upmc.pcg.Energy;
 import upmc.pcg.EnergyAffinity;
 import upmc.pcg.EnergyType;
 import upmc.pcg.Pokedeck;
 import upmc.pcg.Pokemon;
+import upmc.pcg.SpecialConditions;
 import upmc.pcg.Trainer;
 import upmc.pcg.game.Game;
 
@@ -29,6 +31,19 @@ public class GameUI
     private final Game game = new Game();
     private final Scanner console = new Scanner(System.in);
 
+    public int saisieInt()
+    {
+        this.console.nextInt();
+        int saisie = saisieInt();
+        return saisie;
+    }   
+    public String saisieText()
+    {
+        this.console.nextLine();
+        String saisie = this.console.nextLine();
+        return saisie;
+    }
+    
     public void start() 
     {
         print_welcome_msg();
@@ -49,15 +64,15 @@ public class GameUI
         int i=1;
         System.out.print("Number of players : ");
         System.out.flush();
-        int nbPlayers = this.console.nextInt();
+        int nbPlayers = saisieInt();
         System.out.println();
-        this.console.nextLine();
+        
       
         while(i<=nbPlayers)
         {
             System.out.print(i+"- player name: ");
             System.out.flush();
-            String playerName = this.console.nextLine();
+            String playerName = saisieText();
             System.out.println();
             playersNames.add(playerName);
             i++;
@@ -158,6 +173,20 @@ public class GameUI
         choice = menu_isCorrectChoice(choice,"Please select a value between 1-5 for the stage of your pokemon",1,5);
         return choice;
     }
+    
+    //TODO
+    public ArrayList<Energy> ask_choice_retreatCost(){
+        return new ArrayList<Energy>();
+    }
+    //TODO
+    public ArrayList<SpecialConditions> ask_choice_stade(){
+        return new ArrayList<SpecialConditions>();
+    }
+    
+    //TODO
+    public ArrayList<Attack> ask_choice_attack(){
+        return new ArrayList<Attack>();
+    }
   
     /*pas encore fonctionnelle car non finie*/
     public void menu(Pokedeck p)
@@ -172,18 +201,20 @@ public class GameUI
             break;
             case 2:
                 choice = menu_isCorrectChoice(choice,"1 - Search card by name\n 2 - Search card by number\n 3 - Return",1,3);
-                if(choice==1){
-                    this.console.nextLine();
+                if(choice==1)
+                { 
                     System.out.println("Card name :");
-                    String name = this.console.nextLine();
+                    String name = saisieText();
                     Card cardSearch = p.getCardByName(name);
                     update_card(p,cardSearch);
-                }else if(choice==2){
+                }else if(choice==2)
+                {
                     System.out.println("Card number :");
-                    int number = this.console.nextInt();
+                    int number = saisieInt();
                     Card cardSearch = p.getCardByNumber(number);
                     update_card(p,cardSearch);
-                }else if(choice==3){   
+                }else if(choice==3)
+                {   
                     //retour
                     break;
                 }
@@ -235,16 +266,50 @@ public class GameUI
         }
     }
     
-    private void ask_pokemon_attributes(){
-        System.out.println("You choose to create a Pokemon\n Please enter his name");
-        String name = console.nextLine();
-        int number = ask_choice_int();
+    private Card ask_card_generality(){
+        Card card =null;
+        int choice = 0;
+        String description = "";
+        
+        System.out.println("Card number :");
+        int number = saisieInt();
+            
+        System.out.println("Card name :");
+        String name = saisieText();
+        
+        card = new Card(number,name);
+        
+                    
+        choice = menu_isCorrectChoice(choice,"Do you want to add description ?\n\n 1 - Yes\n 2 - No",1,2);
+        if(choice==1){
+            System.out.println("Card description :");
+            description = saisieText();
+            card.addDescription(description);    
+        }
+        
+        return card;
+        
+    }
+    
+    private void ask_pokemon_attributes(Pokedeck p){
+        System.out.println("You choose to create a Pokemon\n Please enter his name: ");
+        Card c = ask_card_generality();
         EnergyType type = ask_choice_energyType();
         EnergyAffinity weakness  = ask_choice_energyAffinity();
         EnergyAffinity resistance = ask_choice_energyAffinity();
         int healthPoint = ask_choice_healthPoint();
         int stage = ask_choice_stage();
+        System.out.println("Pokemon previous stage :");
+        Pokemon pokemonprevioustage = null;
+        System.out.print("Ability :");
+        String ability = saisieText();
+        ArrayList<Energy> retreatCost = ask_choice_retreatCost();
+        ArrayList<SpecialConditions> stade = ask_choice_stade();
         ArrayList<Attack> attacks = ask_choice_attack();
+        p.getPokedeckContent().add(
+                new Pokemon(c.getCardNumber(),c.getCardName(),type,weakness,resistance,healthPoint,stage,ability,attacks,retreatCost,stade)
+        );
+        //ajout description
     }
     
     private void ask_trainer_attributes(){
@@ -257,30 +322,14 @@ public class GameUI
  
     private void update_card(Pokedeck p,Card c)
     { 
-        this.console.nextInt();
+        
         int choice = 0;
         choice = menu_isCorrectChoice(choice,"1 - Update this card\n 2- Delete this card\n 3 - Return",1,2);
         
         if(choice == 1)
         {
-            String description = "";
-            System.out.println("Card number :");
-            int number = this.console.nextInt();
-            
-            this.console.nextLine();
-            System.out.println("Card number :");
-            String name = this.console.nextLine();
-            
-            this.console.nextInt();            
-            choice = menu_isCorrectChoice(choice,"Do you want to add description ?\n\n 1 - Yes\n 2 - No",1,2);
-            if(choice==1){
-                this.console.nextLine();
-                System.out.println("Card description :");
-                description = this.console.nextLine();
-                c.updateCard(number,name,description);
-            }else {
-                c.updateCard(number,name,description);
-            }
+            Card card = ask_card_generality();
+            c.updateCard(card.getCardNumber(),card.getCardName(),card.getCardDescription());
         }else{
             choice = menu_isCorrectChoice(choice,"Are you sure to delete this card?\n\n 1 - Yes\n 2 - No",1,2);
             if(choice == 1)
@@ -297,5 +346,9 @@ public class GameUI
     {
         System.out.println("S.T.A.R.T");
     }
-  
+    
+    public static void main(String[]argz){
+        GameUI g = new GameUI();
+        g.start();
+    }
 }

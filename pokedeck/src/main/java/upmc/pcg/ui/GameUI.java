@@ -222,7 +222,7 @@ public class GameUI
             break;
             case 3:
                 System.out.println("You will create a card");
-                create_card();
+                create_card(p);
                 break;
             case 4:
                 System.out.print("End game.");
@@ -230,11 +230,11 @@ public class GameUI
         }
   }
     
-    private void create_card()
+    private void create_card(Pokedeck p)
     {
         System.out.println("What kind of card do you want create ?");
         display_type_card();
-        choice_type_card();
+        choice_type_card(p);
         
     }
     
@@ -245,23 +245,20 @@ public class GameUI
         System.out.println("3 - Energy");
     }
     
-    private void choice_type_card(){
+    private void choice_type_card(Pokedeck p){
         System.out.println("Make your choice");
         int choice = 0;
         Card newCard = null;
         choice = menu_isCorrectChoice(choice,"1 - Pokemon\n 2 - Trainer\n 3 - Energy\n",1,3);
         switch(choice){
             case 1 :
-                ask_pokemon_attributes();
-                newCard = new Pokemon();
+                ask_pokemon_attributes(p);
                 break;
             case 2 :
-                ask_trainer_attributes();
-                newCard = new Trainer();
+                ask_trainer_attributes(p);
                 break;
             case 3 :
-                ask_energy_attributes();
-                newCard = new Energy();
+                ask_energy_attributes(p)
                 break;
         }
     }
@@ -292,17 +289,24 @@ public class GameUI
     }
     
     private void ask_pokemon_attributes(Pokedeck p){
-        System.out.println("You choose to create a Pokemon\n Please enter his name: ");
+        System.out.println("You choose to create a Pokemon: ");
         Card c = ask_card_generality();
         EnergyType type = ask_choice_energyType();
         EnergyAffinity weakness  = ask_choice_energyAffinity();
         EnergyAffinity resistance = ask_choice_energyAffinity();
+        
+        System.out.println("Pokemon health point :");
         int healthPoint = ask_choice_healthPoint();
-        int stage = ask_choice_stage();
+        System.out.println();
+
         System.out.println("Pokemon previous stage :");
-        Pokemon pokemonprevioustage = null;
+        int stage = ask_choice_stage();
+        System.out.println();
+        
         System.out.print("Ability :");
         String ability = saisieText();
+        System.out.println();
+        
         ArrayList<Energy> retreatCost = ask_choice_retreatCost();
         ArrayList<SpecialConditions> stade = ask_choice_stade();
         ArrayList<Attack> attacks = ask_choice_attack();
@@ -312,12 +316,43 @@ public class GameUI
         //ajout description
     }
     
-    private void ask_trainer_attributes(){
+    private void ask_trainer_attributes(Pokedeck p){
+        System.out.println("Trainer: ");
         
+        Card c = ask_card_generality();
+                
+        System.out.print("Type: ");
+        String trainerType = saisieText();
+        System.out.println();
+        
+        System.out.print("Text box: ");
+        String trainerTextBox = saisieText();
+        System.out.println();
+        
+        System.out.print("Rule: ");
+        String trainerRule = saisieText();
+        System.out.println();
+        
+        p.getPokedeckContent().add(new Trainer(c.getCardNumber(),c.getCardName(),trainerType,trainerTextBox,trainerRule));
+        //ajout description
     }
     
-    private void ask_energy_attributes(){
+    private void ask_energy_attributes(Pokedeck p){
+        System.out.println("Energy: ");
         
+        Card c = ask_card_generality();
+
+        System.out.print("Energy type id: ");
+        int energyTypeId = saisieInt();
+        System.out.println();
+        
+        System.out.print("Energy type name: ");
+        String energyTypeName = saisieText();
+        System.out.println();
+        
+        EnergyType energyType = new EnergyType(energyTypeId,energyTypeName);
+
+        p.getPokedeckContent().add(new Energy(c.getCardNumber(),c.getCardName(),energyType));
     }
  
     private void update_card(Pokedeck p,Card c)

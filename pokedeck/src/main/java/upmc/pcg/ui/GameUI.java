@@ -258,7 +258,7 @@ public class GameUI
                 ask_trainer_attributes(p);
                 break;
             case 3 :
-                ask_energy_attributes(p)
+                ask_energy_attributes(p);
                 break;
         }
     }

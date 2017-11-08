@@ -150,7 +150,7 @@ public class GameUI
         String energyString = "1 - Grass\n 2 - Fire\n 3 - Water\n 4 - Lightning\n 5 - Psychic\n 6 - Fighting\n 7 - Darkness\n 8 - Metal\n 9 - Fairy\n 10 - Dragon\n 11 - Colorless";
         choice = menu_isCorrectChoice(choice,energyString,1,11);
         test_choice_energy(choice);
-        EnergyType energy = new EnergyType(name,choice);
+        EnergyType energy = new EnergyType(choice,name);
         return energy;
     }
     

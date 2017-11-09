@@ -15,6 +15,8 @@ import java.util.ArrayList;
  *
  * @author adminRAF
  */
+
+//Delete the attribute pokemonState because it's not useful now, the SpecialConditions class is represent the side effect after getting attacked by another pokemon
 public class Pokemon extends Card
 {
    private EnergyType pokemonType;
@@ -24,8 +26,8 @@ public class Pokemon extends Card
    private int pokemonPreviousStage; 
    private String pokemonSpecialAbility;
    private ArrayList<Attack> pokemonAttackList;
-   private ArrayList<Energy> pokemonRetreatCost;
-   private ArrayList<SpecialConditions> pokemonStade;
+   private ArrayList<EnergyType> pokemonRetreatCost;
+// private ArrayList<SpecialConditions> pokemonState;
 
     public Pokemon
         (
@@ -38,8 +40,8 @@ public class Pokemon extends Card
             int pokemonPreviousStage, 
             String pokemonSpecialAbility, 
             ArrayList<Attack> pokemonAttackList, 
-            ArrayList<Energy> pokemonRetreatCost, 
-            ArrayList<SpecialConditions> pokemonStade     
+            ArrayList<EnergyType> pokemonRetreatCost
+//          ArrayList<SpecialConditions> pokemonState     
         ) 
     {
         super(number, name);
@@ -51,7 +53,7 @@ public class Pokemon extends Card
         this.pokemonSpecialAbility = pokemonSpecialAbility;
         this.pokemonAttackList = pokemonAttackList;
         this.pokemonRetreatCost = pokemonRetreatCost;
-        this.pokemonStade = pokemonStade;
+//      this.pokemonState = pokemonState;
     }
     
     /*Return elements of list in String*/

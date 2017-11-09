@@ -11,21 +11,23 @@ import java.util.ArrayList;
  *
  * @author adminRAF
  */
+
+//Delete attribute SpecialConditions because this class isn't useful for now, she represents an condition that an attack can apply to another pokemon
 public class Attack 
 {
     private String attackName;
     private int attackDamage;
-    private ArrayList<Energy> attackRequiredEnergy;
-    private SpecialConditions attackSpecialConditions;
+    private ArrayList<EnergyType> attackRequiredEnergy;
+    //private SpecialConditions attackSpecialConditions;
     private String attackDamageText;
     private String attackDescription;
     
-    public Attack(String attackName, int attackDamage, SpecialConditions attackSpecialConditions, String attackDamageText, String attackDescription){
+    public Attack(String attackName, int attackDamage, ArrayList<EnergyType> attackRequiredEnergy,String attackDamageText, String attackDescription){
         this.attackName = attackName;
         this.attackDamage = attackDamage;
-        this.attackSpecialConditions = attackSpecialConditions;
+        //this.attackSpecialConditions = attackSpecialConditions;
         this.attackDamageText = attackDamageText;
         this.attackDescription = attackDamageText;
-        this.attackRequiredEnergy = new ArrayList<Energy>();
+        this.attackRequiredEnergy = attackRequiredEnergy;
     }
 }

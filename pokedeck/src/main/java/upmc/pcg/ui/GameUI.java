@@ -68,7 +68,7 @@ public class GameUI
         System.out.println();
         
       
-        while(i<=nbPlayers)
+        while(i<nbPlayers)
         {
             System.out.print(i+"- player name: ");
             System.out.flush();
@@ -174,18 +174,49 @@ public class GameUI
         return choice;
     }
     
-    //TODO
-    public ArrayList<Energy> ask_choice_retreatCost(){
-        return new ArrayList<Energy>();
+    
+    public ArrayList<EnergyType> ask_choice_retreatCost(){
+        int choice = 0;
+        ArrayList<EnergyType> retreatCost = ask_choice_energyList();
+        return retreatCost;
     }
-    //TODO
-    public ArrayList<SpecialConditions> ask_choice_stade(){
-        return new ArrayList<SpecialConditions>();
+
+    public ArrayList<EnergyType> ask_choice_energyList(){
+        int choice = 0;
+        ArrayList<EnergyType> requiredEnergy = new ArrayList();
+        choice = menu_isCorrectChoice(choice,"Please select a value between 1-5 to choose how many energy are required",1,5);
+        for(int i=0;i<=choice;i++){
+            EnergyType energy = ask_choice_energyType();
+            requiredEnergy.add(energy);
+        }
+        return requiredEnergy;
     }
     
-    //TODO
-    public ArrayList<Attack> ask_choice_attack(){
-        return new ArrayList<Attack>();
+    public Attack ask_choice_attack(){
+        String name = "Undefined";
+        String damageText = "Undefined";
+        String description = "Undefined";
+        int choice = 0;
+        int damage = menu_isCorrectChoice(choice,"Please select a value between 10-100 for the damage dealt by the attack",10,100);
+        ArrayList<EnergyType> requiredEnergy = ask_choice_energyList();
+        System.out.println("Please write the damage text of your attack");
+        damageText = saisieText();
+        System.out.println("Please write the description of your attack");
+        description = saisieText();
+        Attack attack = new Attack(name,damage,requiredEnergy,damageText,description);
+        return attack;
+    }
+    
+    
+    public ArrayList<Attack> ask_choice_attackList(){
+        int choice = 0;
+        ArrayList<Attack> attacks =new ArrayList<Attack>();
+        choice = menu_isCorrectChoice(choice,"Please select a value between 1-5 to choose the number of attack",1,5);
+        for(int i=0;i<=choice;i++){
+            Attack attack = ask_choice_attack();
+            attacks.add(attack);
+        }
+        return attacks ;
     }
   
     /*pas encore fonctionnelle car non finie*/
@@ -307,11 +338,10 @@ public class GameUI
         String ability = saisieText();
         System.out.println();
         
-        ArrayList<Energy> retreatCost = ask_choice_retreatCost();
-        ArrayList<SpecialConditions> stade = ask_choice_stade();
-        ArrayList<Attack> attacks = ask_choice_attack();
+        ArrayList<EnergyType> retreatCost = ask_choice_retreatCost();
+        ArrayList<Attack> attacks = ask_choice_attackList();
         p.getPokedeckContent().add(
-                new Pokemon(c.getCardNumber(),c.getCardName(),type,weakness,resistance,healthPoint,stage,ability,attacks,retreatCost,stade)
+                new Pokemon(c.getCardNumber(),c.getCardName(),type,weakness,resistance,healthPoint,stage,ability,attacks,retreatCost)
         );
         //ajout description
     }

@@ -14,7 +14,7 @@ public class EnergyType
     private String EnergyTypeName;
     private int EnergyTypeId;
 
-    public EnergyType(String EnergyTypeName, int EnergyTypeId) 
+    public EnergyType(int EnergyTypeId,String EnergyTypeName) 
     {
         this.EnergyTypeName = EnergyTypeName;
         this.EnergyTypeId = EnergyTypeId;

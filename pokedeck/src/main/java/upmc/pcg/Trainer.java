@@ -15,7 +15,7 @@ public class Trainer extends Card
     private String trainerTextBox;
     private String trainerRule;
 
-    public Trainer(String trainerType, String trainerTextBox, String trainerRule, int number, String name) 
+    public Trainer(int number, String name,String trainerType, String trainerTextBox, String trainerRule) 
     {
         super(number, name);
         this.trainerType = trainerType;

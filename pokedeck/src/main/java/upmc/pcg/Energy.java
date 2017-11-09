@@ -13,7 +13,7 @@ public class Energy extends Card
 {
     private EnergyType energyType;
 
-    public Energy(EnergyType EnergyType, int number, String name) 
+    public Energy( int number, String name,EnergyType EnergyType) 
     {
         super(number, name);
         this.energyType = EnergyType;

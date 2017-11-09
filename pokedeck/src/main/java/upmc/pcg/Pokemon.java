@@ -21,7 +21,7 @@ public class Pokemon extends Card
    private EnergyAffinity pokemonWeakness;
    private EnergyAffinity pokemonResistance;
    private int pokemonHeathPoint;
-   private Pokemon pokemonPreviousStage; 
+   private int pokemonPreviousStage; 
    private String pokemonSpecialAbility;
    private ArrayList<Attack> pokemonAttackList;
    private ArrayList<Energy> pokemonRetreatCost;
@@ -29,17 +29,17 @@ public class Pokemon extends Card
 
     public Pokemon
         (
+            int number, 
+            String name,
             EnergyType pokemonType, 
             EnergyAffinity pokemonWeakness, 
             EnergyAffinity pokemonResistance, 
             int pokemonHeathPoint, 
-            Pokemon pokemonPreviousStage, 
+            int pokemonPreviousStage, 
             String pokemonSpecialAbility, 
             ArrayList<Attack> pokemonAttackList, 
             ArrayList<Energy> pokemonRetreatCost, 
-            ArrayList<SpecialConditions> pokemonStade, 
-            int number, 
-            String name
+            ArrayList<SpecialConditions> pokemonStade     
         ) 
     {
         super(number, name);

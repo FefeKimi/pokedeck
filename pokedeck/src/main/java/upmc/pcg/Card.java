@@ -41,6 +41,9 @@ public class Card
         return this.cardNumber;
     }
     
+    public String getCardDescription(){
+        return this.cardDescription;
+    }
     public String toString(){
         return this.cardNumber+" "+this.cardName+"\n\nDescrition :\n"+this.cardDescription+"\n\n";
     }

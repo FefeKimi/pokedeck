@@ -30,20 +30,7 @@ public class GameUI
 {
     private final Game game = new Game();
     private final Scanner console = new Scanner(System.in);
-
-    public int saisieInt()
-    {
-        this.console.nextInt();
-        int saisie = saisieInt();
-        return saisie;
-    }   
-    public String saisieText()
-    {
-        this.console.nextLine();
-        String saisie = this.console.nextLine();
-        return saisie;
-    }
-    
+ 
     public void start() 
     {
         print_welcome_msg();
@@ -52,43 +39,6 @@ public class GameUI
         game.initialize(names);
         game.play();
         menu(game.getPokedecks().get(0));
-    }
-
-    private ArrayList<String> ask_players_names() 
-    { 
-      return new ArrayList<>();
-    }
-  
-    public void askPlayersMethod(ArrayList<String> playersNames)
-    {
-        int i=1;
-        System.out.print("Number of players : ");
-        System.out.flush();
-        int nbPlayers = saisieInt();
-        System.out.println();
-        
-      
-        while(i<nbPlayers)
-        {
-            System.out.print(i+"- player name: ");
-            System.out.flush();
-            String playerName = saisieText();
-            System.out.println();
-            playersNames.add(playerName);
-            i++;
-        }
-  }
-   
-    
-    public int menu_isCorrectChoice(int choice, String options, int limMax, int limMin)
-    {
-        System.out.println(options);
-        choice = ask_choice_int();
-        while(!(choice<limMin && choice>limMax)){
-            System.out.println("Error! Please make a choice between "+limMin+"-"+limMax);
-            choice = ask_choice_int();
-        }
-        return choice;
     }
     
     public int ask_choice_int()
@@ -104,44 +54,36 @@ public class GameUI
         return choice;  
     }
     
-    public String test_choice_energy(int choice){
-        String name = "";
-        switch(choice){
-            case 1:
-                name = "Grass";
-                break;
-            case 2:
-                name = "Fire";
-                break;
-            case 3:
-                name = "Water";
-                break;
-            case 4:
-                name = "Lightning";;
-                break;
-            case 5:
-                name = "Psychic";
-                break;
-            case 6:
-                name = "Fighting";
-                break;
-            case 7:
-                name = "Darkness";
-                break;
-            case 8:
-                name = "Metal";
-                break;
-            case 9:
-                name = "Fairy";
-                break;
-            case 10:
-                name = "Dragon";
-                break;
-            case 11:
-                name = "Colorless";
-                break;
+    public String ask_choice_text()
+    {
+        this.console.nextLine();
+        String choice = this.console.nextLine();
+        return choice;
+    }
+    
+    private ArrayList<String> ask_players_names() 
+    { 
+      return new ArrayList<>();
+    }
+  
+    public void askPlayersMethod(ArrayList<String> playersNames)
+    {
+        int i=1;
+        System.out.print("Number of players : ");
+        System.out.flush();
+        int nbPlayers = ask_choice_int();
+        System.out.println();
+        
+      
+        while(i<nbPlayers)
+        {
+            System.out.print(i+"- player name: ");
+            System.out.flush();
+            String playerName = ask_choice_text();
+            System.out.println();
+            playersNames.add(playerName);
+            i++;
         }
-        return name;
     }
     
     public EnergyType ask_choice_energyType(){
@@ -200,9 +142,9 @@ public class GameUI
         int damage = menu_isCorrectChoice(choice,"Please select a value between 10-100 for the damage dealt by the attack",10,100);
         ArrayList<EnergyType> requiredEnergy = ask_choice_energyList();
         System.out.println("Please write the damage text of your attack");
-        damageText = saisieText();
+        damageText = ask_choice_text();
         System.out.println("Please write the description of your attack");
-        description = saisieText();
+        description = ask_choice_text();
         Attack attack = new Attack(name,damage,requiredEnergy,damageText,description);
         return attack;
     }
@@ -218,81 +160,6 @@ public class GameUI
         }
         return attacks ;
     }
-  
-    /*pas encore fonctionnelle car non finie*/
-    public void menu(Pokedeck p)
-    {
-        System.out.println("-- Menu --");
-        int choice = 0;
-        choice = menu_isCorrectChoice(choice,"1 - Display my collection\n 2 - Search specific card\n 3 - Create a card\n 4 - Quit",1,4);
-      
-        switch(choice){
-            case 1:
-                p.displayCollection();
-            break;
-            case 2:
-                choice = menu_isCorrectChoice(choice,"1 - Search card by name\n 2 - Search card by number\n 3 - Return",1,3);
-                if(choice==1)
-                { 
-                    System.out.println("Card name :");
-                    String name = saisieText();
-                    Card cardSearch = p.getCardByName(name);
-                    update_card(p,cardSearch);
-                }else if(choice==2)
-                {
-                    System.out.println("Card number :");
-                    int number = saisieInt();
-                    Card cardSearch = p.getCardByNumber(number);
-                    update_card(p,cardSearch);
-                }else if(choice==3)
-                {   
-                    //retour
-                    break;
-                }
-                
-            break;
-            case 3:
-                System.out.println("You will create a card");
-                create_card(p);
-                break;
-            case 4:
-                System.out.print("End game.");
-            ;          
-        }
-  }
-    
-    private void create_card(Pokedeck p)
-    {
-        System.out.println("What kind of card do you want create ?");
-        display_type_card();
-        choice_type_card(p);
-        
-    }
-    
-    private void display_type_card()
-    {
-        System.out.println("1 - Pokemon");
-        System.out.println("2 - Trainer");
-        System.out.println("3 - Energy");
-    }
-    
-    private void choice_type_card(Pokedeck p){
-        System.out.println("Make your choice");
-        int choice = 0;
-        Card newCard = null;
-        choice = menu_isCorrectChoice(choice,"1 - Pokemon\n 2 - Trainer\n 3 - Energy\n",1,3);
-        switch(choice){
-            case 1 :
-                ask_pokemon_attributes(p);
-                break;
-            case 2 :
-                ask_trainer_attributes(p);
-                break;
-            case 3 :
-                ask_energy_attributes(p);
-                break;
-        }
-    }
     
     private Card ask_card_generality(){
         Card card =null;
@@ -300,10 +167,10 @@ public class GameUI
         String description = "";
         
         System.out.println("Card number :");
-        int number = saisieInt();
+        int number = ask_choice_int();
             
         System.out.println("Card name :");
-        String name = saisieText();
+        String name = ask_choice_text();
         
         card = new Card(number,name);
         
@@ -311,7 +178,7 @@ public class GameUI
         choice = menu_isCorrectChoice(choice,"Do you want to add description ?\n\n 1 - Yes\n 2 - No",1,2);
         if(choice==1){
             System.out.println("Card description :");
-            description = saisieText();
+            description = ask_choice_text();
             card.addDescription(description);    
         }
         
@@ -335,15 +202,15 @@ public class GameUI
         System.out.println();
         
         System.out.print("Ability :");
-        String ability = saisieText();
+        String ability = ask_choice_text();
         System.out.println();
         
         ArrayList<EnergyType> retreatCost = ask_choice_retreatCost();
         ArrayList<Attack> attacks = ask_choice_attackList();
-        p.getPokedeckContent().add(
-                new Pokemon(c.getCardNumber(),c.getCardName(),type,weakness,resistance,healthPoint,stage,ability,attacks,retreatCost)
-        );
-        //ajout description
+        
+        Pokemon pokemonAdd = new Pokemon(c.getCardNumber(),c.getCardName(),type,weakness,resistance,healthPoint,stage,ability,attacks,retreatCost);
+        pokemonAdd.addDescription(c.getCardDescription());
+        p.getPokedeckContent().add(pokemonAdd);
     }
     
     private void ask_trainer_attributes(Pokedeck p){
@@ -352,19 +219,20 @@ public class GameUI
         Card c = ask_card_generality();
                 
         System.out.print("Type: ");
-        String trainerType = saisieText();
+        String trainerType = ask_choice_text();
         System.out.println();
         
         System.out.print("Text box: ");
-        String trainerTextBox = saisieText();
+        String trainerTextBox = ask_choice_text();
         System.out.println();
         
         System.out.print("Rule: ");
-        String trainerRule = saisieText();
+        String trainerRule = ask_choice_text();
         System.out.println();
         
-        p.getPokedeckContent().add(new Trainer(c.getCardNumber(),c.getCardName(),trainerType,trainerTextBox,trainerRule));
-        //ajout description
+        Trainer trainerAdd = new Trainer(c.getCardNumber(),c.getCardName(),trainerType,trainerTextBox,trainerRule);
+        trainerAdd.addDescription(c.getCardDescription());
+        p.getPokedeckContent().add(trainerAdd);
     }
     
     private void ask_energy_attributes(Pokedeck p){
@@ -373,18 +241,146 @@ public class GameUI
         Card c = ask_card_generality();
 
         System.out.print("Energy type id: ");
-        int energyTypeId = saisieInt();
+        int energyTypeId = ask_choice_int();
         System.out.println();
         
         System.out.print("Energy type name: ");
-        String energyTypeName = saisieText();
+        String energyTypeName = ask_choice_text();
         System.out.println();
         
         EnergyType energyType = new EnergyType(energyTypeId,energyTypeName);
-
-        p.getPokedeckContent().add(new Energy(c.getCardNumber(),c.getCardName(),energyType));
+        Energy energyAdd = new Energy(c.getCardNumber(),c.getCardName(),energyType);
+        energyAdd.addDescription(c.getCardDescription());
+        p.getPokedeckContent().add(energyAdd);
     }
  
+    
+    public int menu_isCorrectChoice(int choice, String options, int limMax, int limMin)
+    {
+        System.out.println(options);
+        choice = ask_choice_int();
+        while(!(choice<limMin && choice>limMax)){
+            System.out.println("Error! Please make a choice between "+limMin+"-"+limMax);
+            choice = ask_choice_int();
+        }
+        return choice;
+    }
+
+    public String test_choice_energy(int choice){
+        String name = "";
+        switch(choice){
+            case 1:
+                name = "Grass";
+                break;
+            case 2:
+                name = "Fire";
+                break;
+            case 3:
+                name = "Water";
+                break;
+            case 4:
+                name = "Lightning";;
+                break;
+            case 5:
+                name = "Psychic";
+                break;
+            case 6:
+                name = "Fighting";
+                break;
+            case 7:
+                name = "Darkness";
+                break;
+            case 8:
+                name = "Metal";
+                break;
+            case 9:
+                name = "Fairy";
+                break;
+            case 10:
+                name = "Dragon";
+                break;
+            case 11:
+                name = "Colorless";
+                break;
+        }
+        return name;
+    }
+  
+    /*pas encore fonctionnelle car non finie*/
+    public void menu(Pokedeck p)
+    {
+        System.out.println("-- Menu --");
+        int choice = 0;
+        choice = menu_isCorrectChoice(choice,"1 - Display my collection\n 2 - Search specific card\n 3 - Create a card\n 4 - Quit",1,4);
+      
+        switch(choice){
+            case 1:
+                p.displayCollection();
+            break;
+            case 2:
+                choice = menu_isCorrectChoice(choice,"1 - Search card by name\n 2 - Search card by number\n 3 - Return",1,3);
+                if(choice==1)
+                { 
+                    System.out.println("Card name :");
+                    String name = ask_choice_text();
+                    Card cardSearch = p.getCardByName(name);
+                    update_card(p,cardSearch);
+                }else if(choice==2)
+                {
+                    System.out.println("Card number :");
+                    int number = ask_choice_int();
+                    Card cardSearch = p.getCardByNumber(number);
+                    update_card(p,cardSearch);
+                }else if(choice==3)
+                {   
+                    //retour
+                    break;
+                }
+                
+            break;
+            case 3:
+                System.out.println("You will create a card");
+                create_card(p);
+                break;
+            case 4:
+                System.out.print("End game.");
+            ;          
+        }
+    }
+    
+    private void display_type_card()
+    {
+        System.out.println("1 - Pokemon");
+        System.out.println("2 - Trainer");
+        System.out.println("3 - Energy");
+    }
+    
+    private void create_card(Pokedeck p)
+    {
+        System.out.println("What kind of card do you want create ?");
+        display_type_card();
+        choice_type_card(p);
+        
+    }
+    
+    private void choice_type_card(Pokedeck p){
+        System.out.println("Make your choice");
+        int choice = 0;
+        Card newCard = null;
+        choice = menu_isCorrectChoice(choice,"1 - Pokemon\n 2 - Trainer\n 3 - Energy\n",1,3);
+        switch(choice){
+            case 1 :
+                ask_pokemon_attributes(p);
+                break;
+            case 2 :
+                ask_trainer_attributes(p);
+                break;
+            case 3 :
+                ask_energy_attributes(p);
+                break;
+        }
+    }
+    
     private void update_card(Pokedeck p,Card c)
     { 
         

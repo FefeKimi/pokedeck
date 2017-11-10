@@ -38,7 +38,114 @@ public class GameUI
         askPlayersMethod(names);
         game.initialize(names);
         game.play();
-        menu(game.getPokedecks().get(0));
+        this.menu(game.getPokedecks().get(0));
+    }
+    
+    public int menu_isCorrectChoice(int choice, String options, int limMax, int limMin)
+    {
+        System.out.println(options);
+        choice = ask_choice_int();
+        while(!(choice<limMin && choice>limMax)){
+            System.out.println("Error! Please make a choice between "+limMin+"-"+limMax);
+            choice = ask_choice_int();
+        }
+        return choice;
+    }
+
+    public String test_choice_energy(int choice){
+        String name = "";
+        switch(choice){
+            case 1:
+                name = "Grass";
+                break;
+            case 2:
+                name = "Fire";
+                break;
+            case 3:
+                name = "Water";
+                break;
+            case 4:
+                name = "Lightning";;
+                break;
+            case 5:
+                name = "Psychic";
+                break;
+            case 6:
+                name = "Fighting";
+                break;
+            case 7:
+                name = "Darkness";
+                break;
+            case 8:
+                name = "Metal";
+                break;
+            case 9:
+                name = "Fairy";
+                break;
+            case 10:
+                name = "Dragon";
+                break;
+            case 11:
+                name = "Colorless";
+                break;
+        }
+        return name;
+    }
+  
+    /*pas encore fonctionnelle car non finie*/
+    public void menu(Pokedeck p)
+    {
+        System.out.println("-- Menu --");
+        int choice = 0;
+        choice = menu_isCorrectChoice(choice," 1 - Display my collection\n 2 - Search specific card\n 3 - Create a card\n 4 - Quit",0,5);
+      
+        switch(choice){
+            case 1:
+                if(p.getPokedeckContent().isEmpty()){
+                    System.out.print("Collection is empty.");
+                }else{
+                    p.displayCollection();
+                }
+            break;
+            case 2:
+                if(p.getPokedeckContent().isEmpty()){
+                    System.out.print("Collection is empty. Please create card(s).");
+                }else{
+                    choice = menu_isCorrectChoice(choice,"1 - Search card by name\n 2 - Search card by number\n 3 - Return",0,4);
+                    if(choice==1)
+                    {               
+                        System.out.println("Card name :");
+                        String name = ask_choice_text();
+                        Card cardSearch = p.getCardByName(name);
+                        update_card(p,cardSearch);
+                    }else if(choice==2)
+                    {
+                        System.out.println("Card number :");
+                        int number = ask_choice_int();
+                        Card cardSearch = p.getCardByNumber(number);
+                        update_card(p,cardSearch);
+                    }else if(choice==3)
+                    {   
+                        //retour
+                        break;
+                    }
+                }
+            break;
+            case 3:
+                System.out.println("You will create a card");
+                create_card(p);
+                break;
+            case 4:
+                System.out.print("End game. Goodbye ~");
+            ;          
+        }
+    }
+    
+    private void display_type_card()
+    {
+        System.out.println("1 - Pokemon");
+        System.out.println("2 - Trainer");
+        System.out.println("3 - Energy");
     }
     
     public int ask_choice_int()
@@ -73,12 +180,11 @@ public class GameUI
         System.out.flush();
         int nbPlayers = ask_choice_int();
         System.out.println();
-        
-      
-        while(i<nbPlayers)
+
+        while(i<=nbPlayers)
         {
             System.out.print(i+"- player name: ");
-            System.out.flush();
+            System.out.flush();          
             String playerName = ask_choice_text();
             System.out.println();
             playersNames.add(playerName);
@@ -90,7 +196,7 @@ public class GameUI
         String name = "Undefined";
         int choice = 0;
         String energyString = "1 - Grass\n 2 - Fire\n 3 - Water\n 4 - Lightning\n 5 - Psychic\n 6 - Fighting\n 7 - Darkness\n 8 - Metal\n 9 - Fairy\n 10 - Dragon\n 11 - Colorless";
-        choice = menu_isCorrectChoice(choice,energyString,1,11);
+        choice = menu_isCorrectChoice(choice,energyString,0,12);
         test_choice_energy(choice);
         EnergyType energy = new EnergyType(choice,name);
         return energy;
@@ -99,20 +205,20 @@ public class GameUI
     public EnergyAffinity ask_choice_energyAffinity(){
         EnergyType type = ask_choice_energyType();
         int choice = 0;
-        int value = menu_isCorrectChoice(choice,"Please select a value between 1-5 for the strength of the affinity",1,5);
+        int value = menu_isCorrectChoice(choice,"Please select a value between 1-5 for the strength of the affinity",0,6);
         EnergyAffinity affinity = new EnergyAffinity(type,value);
         return affinity;
     }
     
     public int ask_choice_healthPoint(){
         int choice = 0;
-        choice = menu_isCorrectChoice(choice,"Please select a value between 10-200 for the health of your pokemon",10,200);
+        choice = menu_isCorrectChoice(choice,"Please select a value between 10-200 for the health of your pokemon",9,201);
         return choice;
     }
     
     public int ask_choice_stage(){
         int choice = 0;
-        choice = menu_isCorrectChoice(choice,"Please select a value between 1-5 for the stage of your pokemon",1,5);
+        choice = menu_isCorrectChoice(choice,"Please select a value between 1-5 for the stage of your pokemon",0,6);
         return choice;
     }
     
@@ -126,7 +232,7 @@ public class GameUI
     public ArrayList<EnergyType> ask_choice_energyList(){
         int choice = 0;
         ArrayList<EnergyType> requiredEnergy = new ArrayList();
-        choice = menu_isCorrectChoice(choice,"Please select a value between 1-5 to choose how many energy are required",1,5);
+        choice = menu_isCorrectChoice(choice,"Please select a value between 1-5 to choose how many energy are required",0,6);
         for(int i=0;i<=choice;i++){
             EnergyType energy = ask_choice_energyType();
             requiredEnergy.add(energy);
@@ -139,7 +245,7 @@ public class GameUI
         String damageText = "Undefined";
         String description = "Undefined";
         int choice = 0;
-        int damage = menu_isCorrectChoice(choice,"Please select a value between 10-100 for the damage dealt by the attack",10,100);
+        int damage = menu_isCorrectChoice(choice,"Please select a value between 10-100 for the damage dealt by the attack",9,101);
         ArrayList<EnergyType> requiredEnergy = ask_choice_energyList();
         System.out.println("Please write the damage text of your attack");
         damageText = ask_choice_text();
@@ -153,7 +259,7 @@ public class GameUI
     public ArrayList<Attack> ask_choice_attackList(){
         int choice = 0;
         ArrayList<Attack> attacks =new ArrayList<Attack>();
-        choice = menu_isCorrectChoice(choice,"Please select a value between 1-5 to choose the number of attack",1,5);
+        choice = menu_isCorrectChoice(choice,"Please select a value between 1-5 to choose the number of attack",0,6);
         for(int i=0;i<=choice;i++){
             Attack attack = ask_choice_attack();
             attacks.add(attack);
@@ -175,7 +281,7 @@ public class GameUI
         card = new Card(number,name);
         
                     
-        choice = menu_isCorrectChoice(choice,"Do you want to add description ?\n\n 1 - Yes\n 2 - No",1,2);
+        choice = menu_isCorrectChoice(choice,"Do you want to add description ?\n\n 1 - Yes\n 2 - No",0,3);
         if(choice==1){
             System.out.println("Card description :");
             description = ask_choice_text();
@@ -255,119 +361,18 @@ public class GameUI
     }
  
     
-    public int menu_isCorrectChoice(int choice, String options, int limMax, int limMin)
-    {
-        System.out.println(options);
-        choice = ask_choice_int();
-        while(!(choice<limMin && choice>limMax)){
-            System.out.println("Error! Please make a choice between "+limMin+"-"+limMax);
-            choice = ask_choice_int();
-        }
-        return choice;
-    }
-
-    public String test_choice_energy(int choice){
-        String name = "";
-        switch(choice){
-            case 1:
-                name = "Grass";
-                break;
-            case 2:
-                name = "Fire";
-                break;
-            case 3:
-                name = "Water";
-                break;
-            case 4:
-                name = "Lightning";;
-                break;
-            case 5:
-                name = "Psychic";
-                break;
-            case 6:
-                name = "Fighting";
-                break;
-            case 7:
-                name = "Darkness";
-                break;
-            case 8:
-                name = "Metal";
-                break;
-            case 9:
-                name = "Fairy";
-                break;
-            case 10:
-                name = "Dragon";
-                break;
-            case 11:
-                name = "Colorless";
-                break;
-        }
-        return name;
-    }
-  
-    /*pas encore fonctionnelle car non finie*/
-    public void menu(Pokedeck p)
-    {
-        System.out.println("-- Menu --");
-        int choice = 0;
-        choice = menu_isCorrectChoice(choice,"1 - Display my collection\n 2 - Search specific card\n 3 - Create a card\n 4 - Quit",1,4);
-      
-        switch(choice){
-            case 1:
-                p.displayCollection();
-            break;
-            case 2:
-                choice = menu_isCorrectChoice(choice,"1 - Search card by name\n 2 - Search card by number\n 3 - Return",1,3);
-                if(choice==1)
-                { 
-                    System.out.println("Card name :");
-                    String name = ask_choice_text();
-                    Card cardSearch = p.getCardByName(name);
-                    update_card(p,cardSearch);
-                }else if(choice==2)
-                {
-                    System.out.println("Card number :");
-                    int number = ask_choice_int();
-                    Card cardSearch = p.getCardByNumber(number);
-                    update_card(p,cardSearch);
-                }else if(choice==3)
-                {   
-                    //retour
-                    break;
-                }
-                
-            break;
-            case 3:
-                System.out.println("You will create a card");
-                create_card(p);
-                break;
-            case 4:
-                System.out.print("End game.");
-            ;          
-        }
-    }
-    
-    private void display_type_card()
-    {
-        System.out.println("1 - Pokemon");
-        System.out.println("2 - Trainer");
-        System.out.println("3 - Energy");
-    }
-    
     private void create_card(Pokedeck p)
     {
         System.out.println("What kind of card do you want create ?");
         display_type_card();
-        choice_type_card(p);
-        
+        choice_type_card(p);       
     }
     
     private void choice_type_card(Pokedeck p){
         System.out.println("Make your choice");
         int choice = 0;
         Card newCard = null;
-        choice = menu_isCorrectChoice(choice,"1 - Pokemon\n 2 - Trainer\n 3 - Energy\n",1,3);
+        choice = menu_isCorrectChoice(choice,"1 - Pokemon\n 2 - Trainer\n 3 - Energy\n",0,4);
         switch(choice){
             case 1 :
                 ask_pokemon_attributes(p);
@@ -385,14 +390,14 @@ public class GameUI
     { 
         
         int choice = 0;
-        choice = menu_isCorrectChoice(choice,"1 - Update this card\n 2- Delete this card\n 3 - Return",1,2);
+        choice = menu_isCorrectChoice(choice,"1 - Update this card\n 2- Delete this card\n 3 - Return",0,3);
         
         if(choice == 1)
         {
             Card card = ask_card_generality();
             c.updateCard(card.getCardNumber(),card.getCardName(),card.getCardDescription());
         }else{
-            choice = menu_isCorrectChoice(choice,"Are you sure to delete this card?\n\n 1 - Yes\n 2 - No",1,2);
+            choice = menu_isCorrectChoice(choice,"Are you sure to delete this card?\n\n 1 - Yes\n 2 - No",0,3);
             if(choice == 1)
             {
                 p.deleteCard(c);    

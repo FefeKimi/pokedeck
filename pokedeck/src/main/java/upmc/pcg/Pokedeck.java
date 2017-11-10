@@ -39,7 +39,7 @@ public class Pokedeck
         System.out.println("Collection");
         for(int i=0;i<this.pokedeckContent.size();i++)
         {
-            System.out.println(this.pokedeckContent.get(i).toString());
+            System.out.println(this.pokedeckContent.get(i).getCardName());
         }
         
     }

@@ -206,12 +206,13 @@ public class GameUI
         }
     }
     
+    
     public EnergyType ask_choice_energyType(){
         String name = "Undefined";
         int choice = 0;
         String energyString = " 1 - Grass\n 2 - Fire\n 3 - Water\n 4 - Lightning\n 5 - Psychic\n 6 - Fighting\n 7 - Darkness\n 8 - Metal\n 9 - Fairy\n 10 - Dragon\n 11 - Colorless";
         choice = menu_isCorrectChoice(choice,energyString,0,12);
-        test_choice_energy(choice);
+        name = test_choice_energy(choice);
         EnergyType energy = new EnergyType(choice,name);
         return energy;
     }
@@ -307,6 +308,7 @@ public class GameUI
         
     }
     
+    
     private void ask_pokemon_attributes(Pokedeck p){
         System.out.println("You choose to create a Pokemon: ");
         Card c = ask_card_generality();
@@ -324,7 +326,7 @@ public class GameUI
         int healthPoint = ask_choice_healthPoint();
         System.out.println();
 
-        System.out.println("Pokemon previous stage :");
+        System.out.println("Pokemon stage :");
         int stage = ask_choice_stage();
         System.out.println();
         
@@ -366,16 +368,8 @@ public class GameUI
         System.out.println("Energy: ");
         
         Card c = ask_card_generality();
-
-        System.out.print("Energy type id: ");
-        int energyTypeId = ask_choice_int();
-        System.out.println();
         
-        System.out.print("Energy type name: ");
-        String energyTypeName = ask_choice_text();
-        System.out.println();
-        
-        EnergyType energyType = new EnergyType(energyTypeId,energyTypeName);
+        EnergyType energyType = ask_choice_energyType();
         Energy energyAdd = new Energy(c.getCardNumber(),c.getCardName(),energyType);
         energyAdd.addDescription(c.getCardDescription());
         p.getPokedeckContent().add(energyAdd);
@@ -384,7 +378,7 @@ public class GameUI
     
     private void create_card(Pokedeck p)
     {
-        System.out.println("What kind of card do you want create ?");
+        System.out.println("What kind of card do you want to create ?");
         choice_type_card(p);       
     }
     
